@@ -8,8 +8,8 @@
   },
   "devDependencies": {
     "eslint": "^8.48.0",
+    "eslint-config-turbo": "^1.10.12",
     "prettier": "^3.0.3",
-    "tsconfig": "*",
     "turbo": "latest"
   },
   "name": "paninyu",
