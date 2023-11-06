@@ -1,6 +1,4 @@
-"use client";
-
-import { useCallback, useEffect, useRef } from "react";
+import { BackgroundImage } from "./background-image";
 import { Dropzone } from "./dropzone.component";
 import { css } from "@/styled-system/css";
 
@@ -10,17 +8,6 @@ const style = css({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-});
-
-const styleImg = css({
-  position: "relative",
-
-  bgImage: 'url("/assets/background_1.png")',
-  backgroundSize: "contain",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-
-  border: "1px red solid",
 });
 
 // Exemple with black borders placeholder hardplaced in the background image, size/ratio of sitckers should be fixed in % (with variation of landscape or portrait)
@@ -33,49 +20,13 @@ const styleDropZone = css({
 });
 
 export function Album() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const setImageDimension = useCallback(() => {
-    if (containerRef.current) {
-      const RATIO = 16 / 9;
-      const { clientHeight, clientWidth } = containerRef.current
-        .parentElement as Element;
-
-      let height;
-      let width;
-
-      if (clientWidth / clientHeight > RATIO) {
-        height = clientHeight;
-        width = (clientHeight * 16) / 9;
-      } else {
-        height = (clientWidth * 9) / 16;
-        width = clientWidth;
-      }
-
-      containerRef.current.style.setProperty("height", `${height}px`);
-      containerRef.current.style.setProperty("width", `${width}px`);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("resize", setImageDimension);
-
-    return () => {
-      window.removeEventListener("resize", setImageDimension);
-    };
-  }, [setImageDimension]);
-
-  useEffect(() => {
-    setImageDimension();
-  }, [setImageDimension]);
-
   return (
     <div className={style}>
-      <div className={styleImg} ref={containerRef}>
+      <BackgroundImage src="/assets/background_1.png">
         <div className={styleDropZone}>
           <Dropzone />
         </div>
-      </div>
+      </BackgroundImage>
     </div>
   );
 }
