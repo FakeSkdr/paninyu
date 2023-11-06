@@ -1,9 +1,9 @@
-import { css } from "../../styled-system/css";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className={css({ fontSize: "3xl", fontWeight: "bold" })}>
-      Hello 🐼!
+    <div>
+      <Link href="/album">Lien vers l&apos;album</Link>
     </div>
   );
 }

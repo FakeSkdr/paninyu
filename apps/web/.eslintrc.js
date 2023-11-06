@@ -40,5 +40,10 @@ module.exports = {
     "import/no-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "eslint-comments/require-description": "off",
+    "eslint-disable @typescript-eslint/no-unsafe-assignment": "off",
+    "eslint-disable @typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-empty-interface": "off",
   },
 };
