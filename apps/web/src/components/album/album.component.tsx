@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { Dropzone } from "./dropzone.component";
 import { css } from "@/styled-system/css";
 
 const style = css({
+  // TODO remove hardcoded 100px (header + footer height)
   height: "calc(100vh - 100px)",
   display: "flex",
   alignItems: "center",
@@ -18,9 +19,11 @@ const styleImg = css({
   backgroundSize: "contain",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
+
+  border: "1px red solid",
 });
 
-// Exemple with black borders placeholder, size/ratio of sitckers should be fixed in % (with variation of landscape or portrait)
+// Exemple with black borders placeholder hardplaced in the background image, size/ratio of sitckers should be fixed in % (with variation of landscape or portrait)
 const styleDropZone = css({
   position: "absolute",
   top: "23%",
@@ -30,13 +33,13 @@ const styleDropZone = css({
 });
 
 export function Album() {
-  const containerRef = useRef();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // TODO: handle on resize
-  useEffect(() => {
-    if (containerRef?.current) {
+  const setImageDimension = useCallback(() => {
+    if (containerRef.current) {
       const RATIO = 16 / 9;
-      const { clientHeight, clientWidth } = containerRef?.current.parentElement;
+      const { clientHeight, clientWidth } = containerRef.current
+        .parentElement as Element;
 
       let height;
       let width;
@@ -49,10 +52,22 @@ export function Album() {
         width = clientWidth;
       }
 
-      containerRef?.current.style.setProperty("height", `${height}px`);
-      containerRef?.current.style.setProperty("width", `${width}px`);
+      containerRef.current.style.setProperty("height", `${height}px`);
+      containerRef.current.style.setProperty("width", `${width}px`);
     }
-  }, [containerRef?.current]);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", setImageDimension);
+
+    return () => {
+      window.removeEventListener("resize", setImageDimension);
+    };
+  }, [setImageDimension]);
+
+  useEffect(() => {
+    setImageDimension();
+  }, [setImageDimension]);
 
   return (
     <div className={style}>

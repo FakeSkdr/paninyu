@@ -12,5 +12,5 @@ const styles = stack({
 });
 
 export function Footer() {
-  return <footer className={styles}>Made with pa$$ion</footer>;
+  return <footer className={styles}>Footer</footer>;
 }

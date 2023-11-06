@@ -12,5 +12,5 @@ const style = css({
 });
 
 export function Dropzone({ topLeftCorner }: DropzoneProps) {
-  return <div className={style}>Dropzone </div>;
+  return <div className={style}>Dropzone {topLeftCorner}</div>;
 }
