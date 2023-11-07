@@ -52,7 +52,6 @@ export function BackgroundImage({
       className={css({
         position: "relative",
 
-        bgImage: `url("${src}")`,
         backgroundSize: "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -60,6 +59,10 @@ export function BackgroundImage({
         border: "1px red solid",
       })}
       ref={containerRef}
+      style={{
+        // Needed because it is only know at runtiome and css({}) only handle static assets/values
+        backgroundImage: `url('${src}')`,
+      }}
     >
       {children}
     </div>
