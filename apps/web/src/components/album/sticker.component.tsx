@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useDrag } from "react-dnd";
 
 import { css } from "@/styled-system/css";
 
@@ -31,9 +32,18 @@ const styles = css({
   height: "25%",
 });
 
-export function Sticker({ src, top, left }: StickerProps) {
+export function Sticker({ id, src, top, left }: StickerProps) {
+  const [_, dragRef] = useDrag(
+    () => ({
+      type: "Sticker",
+      item: { id, top, left },
+    }),
+    [top, left]
+  );
+
   return (
     <div
+      ref={dragRef}
       className={styles}
       style={{
         top: `${top}%`,
