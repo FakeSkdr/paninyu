@@ -21,7 +21,7 @@ module.exports = {
     "eslint-config-turbo",
   ].map(require.resolve),
   parserOptions: {
-    project,
+    project: true,
   },
   globals: {
     React: true,
@@ -30,7 +30,7 @@ module.exports = {
   settings: {
     "import/resolver": {
       typescript: {
-        project,
+        project: true,
       },
     },
   },

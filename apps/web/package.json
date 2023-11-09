@@ -10,6 +10,7 @@
     "prepare": "panda codegen"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.8.1",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dnd": "^16.0.1",
@@ -20,6 +21,7 @@
     "@next/eslint-plugin-next": "^13.4.19",
     "@pandacss/dev": "^0.17.5",
     "@pandacss/types": "^0.17.5",
+    "@tanstack/eslint-plugin-query": "^5.6.0",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",

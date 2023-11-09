@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { type DropTargetMonitor, useDrop } from "react-dnd";
+
+import { useQuery } from "@tanstack/react-query";
+
 import { css } from "@/styled-system/css";
+import { albumService } from "@/services/album.service";
 
 import { Sticker, type StickerProps } from "../album/sticker.component";
 import { BackgroundImage } from "../album/background-image";
@@ -20,17 +24,22 @@ const styleDropzone = css({
   width: "100%",
 });
 
-// Next step:
-// - Store data in localstorage using an api like schema and load it on refresh
-// - Allow the user to upload his own sticker (/assets/* or https:// to begin, so no backend involved)
-// - Allow the user to upload his own background (/assets/* or https:// to begin, so no backend involved)
+// TODO: Next step
+// - Store data in database and retrieve format
+// - Allow the user to upload his own sticker (/assets/* or https:// to begin with server actions)
+// - Allow the user to upload his own background (/assets/* or https:// to begin with server actions)
 export function Builder() {
   const dropCntainerRef = useRef<HTMLDivElement>(null);
   const [backgroundSrc, setBackgroundSrc] = useState<string | null>(null);
   const [stickers, setStickers] = useState<StickerProps[]>([]);
 
+  const { data } = useQuery({
+    queryKey: ["album", 0],
+    queryFn: () => albumService.getFullPage(0),
+  });
+
   const onDrop = (
-    { id, top: topOffsetInPercent, left: leftOffsetInPercent },
+    { id, top: topOffsetInPercent, left: leftOffsetInPercent }: StickerProps,
     monitor: DropTargetMonitor
   ) => {
     if (!dropCntainerRef.current) {
@@ -76,22 +85,11 @@ export function Builder() {
   );
 
   useEffect(() => {
-    setBackgroundSrc("/assets/background_1.png");
-    setStickers([
-      {
-        id: 1,
-        src: "/assets/sticker_1.png",
-        top: 23,
-        left: 14,
-      },
-      {
-        id: 2,
-        src: "/assets/sticker_2.png",
-        top: 47,
-        left: 54,
-      },
-    ]);
-  }, []);
+    if (data) {
+      setBackgroundSrc(data.backgroundImage);
+      setStickers(data.stickers);
+    }
+  }, [data]);
 
   return (
     <div className={style}>
