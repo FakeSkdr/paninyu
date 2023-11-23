@@ -55,8 +55,6 @@ export function BackgroundImage({
         backgroundSize: "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-
-        border: "1px red solid",
       })}
       ref={containerRef}
       style={{
